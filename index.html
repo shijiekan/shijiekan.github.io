@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>复制文本到剪贴板</title>
+<title>申诉文本</title>
+<!-- 添加 meta 标签禁止缩放 -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <style>
 body {
   font-family: sans-serif;
@@ -17,8 +19,9 @@ body {
 #textToCopy {
   border: 1px solid #ced4da; /* Light grey border */
   padding: 15px;
-  margin-bottom: 20px;
-  width: 60%;
+  /* 移除了按钮，调整底部边距 */
+  margin-bottom: 0;
+  width: 90%;
   max-width: 500px;
   white-space: pre-wrap;
   word-wrap: break-word;
@@ -27,33 +30,8 @@ body {
   background-color: #fff; /* White background */
 }
 
-#copyButton {
-  padding: 12px 25px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-  font-size: 16px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  color: white;
-  /* Using Google's colors */
-  background-image: linear-gradient(90deg, #4285F4, #34A853, #FBBC05, #EA4335); /* Google's colors */
-  background-size: 400% 100%;
-  animation: gradientShift 5s infinite linear;
-}
+/* 删除了 #copyButton 和 @keyframes gradientShift 的样式，因为按钮已移除 */
 
-#copyButton:hover {
-  background-position: 100% 0;
-}
-
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 0;
-  }
-  100% {
-    background-position: 400% 0;
-  }
-}
 </style>
 </head>
 <body>
@@ -73,50 +51,9 @@ body {
 敬祝顺遂！
 </div>
 
-<script>
-function copyText() {
-  const textToCopy = document.getElementById("textToCopy").innerText;
+<!-- 复制按钮已被移除 -->
 
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(textToCopy)
-      .then(() => {
-        alert("文本已复制到剪贴板！");
-      })
-      .catch(err => {
-        console.error('复制失败: ', err);
-        fallbackCopyText(textToCopy);
-      });
-  } else {
-    fallbackCopyText(textToCopy);
-  }
-}
-
-
-function fallbackCopyText(text) {
-  var textArea = document.createElement("textarea");
-  textArea.value = text;
-
-  textArea.style.top = "0";
-  textArea.style.left = "0";
-  textArea.style.position = "fixed";
-
-  document.body.appendChild(textArea);
-  textArea.focus();
-  textArea.select();
-
-  try {
-    var successful = document.execCommand('copy');
-    var msg = successful ? 'successful' : 'unsuccessful';
-    console.log('Fallback: Copying text command was ' + msg);
-    alert("文本已复制到剪贴板！");
-  } catch (err) {
-    console.error('Fallback: Oops, unable to copy', err);
-    alert("复制失败，请手动复制。");
-  }
-
-  document.body.removeChild(textArea);
-}
-</script>
+<!-- 相关的 JavaScript 脚本已被移除 -->
 
 </body>
 </html>
