@@ -1,3 +1,122 @@
-<p>世界那么大</p>
-<p>我想去看看</p>
-<p></p>
+<!DOCTYPE html>
+<html>
+<head>
+<title>复制文本到剪贴板</title>
+<style>
+body {
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  background-color: #f8f9fa; /* Light grey background */
+}
+
+#textToCopy {
+  border: 1px solid #ced4da; /* Light grey border */
+  padding: 15px;
+  margin-bottom: 20px;
+  width: 60%;
+  max-width: 500px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+  border-radius: 8px;
+  background-color: #fff; /* White background */
+}
+
+#copyButton {
+  padding: 12px 25px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  color: white;
+  /* Using Google's colors */
+  background-image: linear-gradient(90deg, #4285F4, #34A853, #FBBC05, #EA4335); /* Google's colors */
+  background-size: 400% 100%;
+  animation: gradientShift 5s infinite linear;
+}
+
+#copyButton:hover {
+  background-position: 100% 0;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 0;
+  }
+  100% {
+    background-position: 400% 0;
+  }
+}
+</style>
+</head>
+<body>
+
+<div id="textToCopy">尊敬的谷歌审核团队：
+
+您好！
+
+我的谷歌账号今日被停用，特此向您申诉并请求重新审核。
+
+作为一名中国用户，由于网络访问的限制，我不得不通过 VPN 使用谷歌服务。这可能导致系统误判我的流量异常，从而触发账号限制。但实际上，我始终遵守谷歌的使用政策，仅将账号用于个人日常需求，如Youtube、Gmail、Google Drive 等服务。
+
+我非常珍惜并依赖谷歌的产品，希望能够继续正常使用。恳请审核团队重新评估我的情况，并恢复账号的使用权限。在此，我郑重承诺，将严格遵守谷歌的相关规定，并愿意配合提供必要的信息以证明账号的合规性。
+
+如需进一步核实，我随时愿意提供相关材料。感谢您的理解与支持，期待您的回复！
+
+敬祝顺遂！
+</div>
+
+<script>
+function copyText() {
+  const textToCopy = document.getElementById("textToCopy").innerText;
+
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(textToCopy)
+      .then(() => {
+        alert("文本已复制到剪贴板！");
+      })
+      .catch(err => {
+        console.error('复制失败: ', err);
+        fallbackCopyText(textToCopy);
+      });
+  } else {
+    fallbackCopyText(textToCopy);
+  }
+}
+
+
+function fallbackCopyText(text) {
+  var textArea = document.createElement("textarea");
+  textArea.value = text;
+
+  textArea.style.top = "0";
+  textArea.style.left = "0";
+  textArea.style.position = "fixed";
+
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+
+  try {
+    var successful = document.execCommand('copy');
+    var msg = successful ? 'successful' : 'unsuccessful';
+    console.log('Fallback: Copying text command was ' + msg);
+    alert("文本已复制到剪贴板！");
+  } catch (err) {
+    console.error('Fallback: Oops, unable to copy', err);
+    alert("复制失败，请手动复制。");
+  }
+
+  document.body.removeChild(textArea);
+}
+</script>
+
+</body>
+</html>
